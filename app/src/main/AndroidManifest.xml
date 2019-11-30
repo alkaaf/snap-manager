@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="id.smartlink.snapmanager">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <dist:module dist:instant="true" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="TUYA_SMART_APPKEY"
+            android:value="9v5m8s8uasj97taphjtp" />
+        <meta-data
+            android:name="TUYA_SMART_SECRET"
+            android:value="e9evx3gt34fhyp337y78dgv5wujmq74y" />
+
+        <activity
+            android:name=".Domain.Splash.Activity.ActivitySplash"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Domain.Authentication.Activity.ActivityLogin" />
+        <activity android:name=".Domain.Authentication.Activity.ActivityRegister" />
+        <activity android:name=".Domain.Home.Activity.ActivityHome" />
+        <activity android:name=".Domain.Home.Activity.ActivityDeviceList" />
+        <activity android:name=".Domain.Home.Activity.ActivityDeviceCommand" />
+        <activity android:name=".Domain.Home.Activity.ActivityDeviceWifiSetup" />
+        <activity android:name=".Domain.Home.Activity.ActivityDeviceAdd" />
+    </application>
+
+</manifest>

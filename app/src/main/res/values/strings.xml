@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Snap Manager</string>
+    <string name="action_settings">Settings</string>
+    <string name="string_setup_device">1. Tekan dan tahan tombol power untuk menyetel ulang perangkat\n2. Tunggu perangkat berkedip dengan cepat\n3. Klik tombol lanjut apabila pernagkat sudah berkedip dengan cepat</string>
+</resources>

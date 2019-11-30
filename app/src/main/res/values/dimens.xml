@@ -1,0 +1,19 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dp32">32dp</dimen>
+    <dimen name="dp24">24dp</dimen>
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="dp2">4dp</dimen>
+
+    <dimen name="sp32">32sp</dimen>
+    <dimen name="sp24">24sp</dimen>
+    <dimen name="sp16">16sp</dimen>
+    <dimen name="sp12">12sp</dimen>
+    <dimen name="sp11">11sp</dimen>
+    <dimen name="sp10">10sp</dimen>
+    <dimen name="sp8">8sp</dimen>
+    <dimen name="sp4">4sp</dimen>
+    <dimen name="sp2">4sp</dimen>
+</resources>
