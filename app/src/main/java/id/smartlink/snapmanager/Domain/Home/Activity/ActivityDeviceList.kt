@@ -13,6 +13,7 @@ import id.smartlink.snapmanager.Base.ActivityBase
 import id.smartlink.snapmanager.Domain.Home.Adapter.AdapterDevice
 import id.smartlink.snapmanager.R
 import kotlinx.android.synthetic.main.activity_device.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.toast
 
@@ -26,6 +27,7 @@ class ActivityDeviceList : ActivityBase() {
         supportActionBar.apply {
             title = "Daftar Alat"
         }
+        homeId = intent.getLongExtra(HOME_ID, 0L)
         initView()
         initData()
     }
@@ -41,11 +43,14 @@ class ActivityDeviceList : ActivityBase() {
         swipe.onRefresh {
             initData()
         }
+        fabAddDevice.onClick {
+            ActivityDeviceAdd.start(this@ActivityDeviceList, homeId)
+        }
     }
 
     fun initData() {
         swipe.isRefreshing = true
-        homeId = intent.getLongExtra(HOME_ID, 0L)
+
         TuyaHomeSdk.newHomeInstance(homeId).getHomeDetail(object : ITuyaHomeResultCallback {
             override fun onSuccess(bean: HomeBean?) {
                 swipe.isRefreshing = false
