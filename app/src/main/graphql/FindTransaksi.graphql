@@ -1,0 +1,11 @@
+query GetTransaksi{
+  transaksi{
+    id
+    idoutlet
+    idowner
+    grandtotal
+    jenis
+    qty
+    created_at_long
+  }
+}
