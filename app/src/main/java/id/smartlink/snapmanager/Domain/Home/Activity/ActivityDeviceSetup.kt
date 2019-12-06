@@ -15,6 +15,7 @@ import com.tuya.smart.sdk.enums.ActivatorEZStepCode
 import id.smartlink.snapmanager.Base.ActivityBase
 import id.smartlink.snapmanager.Domain.Home.Model.DevActivator
 import id.smartlink.snapmanager.R
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_device_setup.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
@@ -23,7 +24,6 @@ class ActivityDeviceSetup : ActivityBase() {
     lateinit var adapter: ArrayAdapter<String>
     var logs = ArrayList<String>()
     var activator: ITuyaActivator? = null
-
     enum class Log {
         ERROR,
         INFO,
@@ -32,7 +32,7 @@ class ActivityDeviceSetup : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_setup)
-        supportActionBar?.title = "Setup Perangkat"
+        supportActionBar?.title = "Device Setup"
         setupData = intent.getParcelableExtra(INTENT_DATA)
         initView()
         initSetup()
@@ -46,6 +46,7 @@ class ActivityDeviceSetup : ActivityBase() {
     fun initSetup() {
         // get token
         bStart.isEnabled = false
+        bFinish.isEnabled = false
         addLog(Log.INFO, "Getting token")
         TuyaHomeSdk.getActivatorInstance().getActivatorToken(setupData.homeId, object : ITuyaActivatorGetToken {
             override fun onSuccess(token: String?) {
@@ -54,6 +55,7 @@ class ActivityDeviceSetup : ActivityBase() {
                     activateDevice(token)
                 } else {
                     addLog(Log.ERROR, "Failed to get token")
+                    bStart.isEnabled = true
                 }
             }
 
@@ -66,21 +68,26 @@ class ActivityDeviceSetup : ActivityBase() {
 
     fun activateDevice(token: String) {
         var dev = DevActivator(token, setupData.ssid, setupData.pass)
-        addLog(Log.INFO, "Mencari perangkat")
+//        addLog(Log.INFO, "Mencari perangkat")
+        addLog(Log.INFO, "Finding device")
         activator = dev.connectEZ(ctx, object : ITuyaSmartActivatorListener {
             override fun onStep(step: String?, data: Any?) {
                 when (step) {
                     ActivatorEZStepCode.DEVICE_BIND_SUCCESS -> {
-                        addLog(Log.INFO, "Koneksi perangkat sukses")
+//                        addLog(Log.INFO, "Koneksi perangkat sukses")
+                        addLog(Log.INFO, "Successfully connect to device")
                     }
                     ActivatorEZStepCode.DEVICE_FIND -> {
-                        addLog(Log.INFO, "Perangkat ditemukan")
+//                        addLog(Log.INFO, "Perangkat ditemukan")
+                        addLog(Log.INFO, "Device Found")
                     }
                 }
             }
 
             override fun onActiveSuccess(devResp: DeviceBean?) {
-                addLog(Log.INFO, "Perangkat berhasil ditambahkan")
+//                addLog(Log.INFO, "Perangkat berhasil ditambahkan")
+                addLog(Log.INFO, "Success adding device")
+                bFinish.isEnabled = true
             }
 
             override fun onError(errorCode: String?, errorMsg: String?) {

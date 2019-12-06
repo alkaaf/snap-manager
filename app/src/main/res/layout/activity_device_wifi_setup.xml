@@ -53,11 +53,12 @@
         android:id="@+id/bNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mulai setup"
+        android:text="Start"
         app:layout_constraintBottom_toTopOf="@+id/bBack"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/bBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

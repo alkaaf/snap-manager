@@ -17,9 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--            android:value="9v5m8s8uasj97taphjtp" -->
         <meta-data
             android:name="TUYA_SMART_APPKEY"
             android:value="9v5m8s8uasj97taphjtp" />
+        <!--            android:value="e9evx3gt34fhyp337y78dgv5wujmq74y" -->
         <meta-data
             android:name="TUYA_SMART_SECRET"
             android:value="e9evx3gt34fhyp337y78dgv5wujmq74y" />

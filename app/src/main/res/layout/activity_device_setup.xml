@@ -13,14 +13,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:text="Mulai"
+        android:text="Start"
         android:id="@+id/bStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/bFinish" />
 
     <Button
-        android:text="Selesai"
+        android:text="Finish"
         android:id="@+id/bFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

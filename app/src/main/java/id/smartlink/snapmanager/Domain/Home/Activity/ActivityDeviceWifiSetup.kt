@@ -20,7 +20,7 @@ class ActivityDeviceWifiSetup : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_wifi_setup)
-        supportActionBar?.title = "Pengaturan WIFI"
+        supportActionBar?.title = "WIFI Configuration"
         initData()
     }
 

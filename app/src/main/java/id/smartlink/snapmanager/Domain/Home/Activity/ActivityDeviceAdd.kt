@@ -12,7 +12,7 @@ class ActivityDeviceAdd : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_device_add)
-        supportActionBar?.title = "Tambah perangkat"
+        supportActionBar?.title = "Add Device"
         homeId = intent.getLongExtra(HOME_ID_DATA, 0L)
         initView()
     }

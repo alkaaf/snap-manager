@@ -1,23 +1,20 @@
 package id.smartlink.snapmanager.Domain.Home.Activity
 
-import GetTransaksiQuery
 import android.os.Bundle
+import android.widget.EditText
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apollographql.apollo.ApolloCall
-import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.exception.ApolloException
 import com.tuya.smart.home.sdk.TuyaHomeSdk
 import com.tuya.smart.home.sdk.bean.HomeBean
 import com.tuya.smart.home.sdk.callback.ITuyaGetHomeListCallback
+import com.tuya.smart.home.sdk.callback.ITuyaHomeResultCallback
 import id.smartlink.snapmanager.Base.ActivityBase
 import id.smartlink.snapmanager.Domain.Home.Adapter.AdapterHome
 import id.smartlink.snapmanager.R
-import id.smartlink.snapmanager.Utils.Apollo
 import kotlinx.android.synthetic.main.activity_home.*
+import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.toast
 
 class ActivityHome : ActivityBase() {
     lateinit var adapter: AdapterHome
@@ -25,12 +22,16 @@ class ActivityHome : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        supportActionBar?.title = "Daftar Ruangan"
+        supportActionBar?.title = "Home List"
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         initView()
-        initData()
+//        initData()
     }
 
+    override fun onStart() {
+        super.onStart()
+        initData()
+    }
     fun initData() {
         swipe.isRefreshing = true
         TuyaHomeSdk.getHomeManagerInstance().queryHomeList(object : ITuyaGetHomeListCallback {
@@ -62,17 +63,36 @@ class ActivityHome : ActivityBase() {
             initData()
         }
         fabAddHome.onClick {
-            var ap = Apollo.getApollo()
-            ap.query(GetTransaksiQuery.builder().build()).enqueue(object : ApolloCall.Callback<GetTransaksiQuery.Data>() {
-                override fun onFailure(e: ApolloException) {
-                    e.printStackTrace()
+            var e = EditText(ctx)
+            alert {
+                title = "Enter new name"
+                customView {
+                    verticalLayout {
+                        padding = dip(16)
+                        e = editText {
+                            hint = "Sarah's Home"
+                        }
+                    }
                 }
-
-                override fun onResponse(response: Response<GetTransaksiQuery.Data>) {
-                    var data = response.data()?.transaksi()
-                    var d = data
+                okButton {
+                    createHome(e.text.toString())
                 }
-            })
+            }.show()
         }
+    }
+
+    fun createHome(name: String) {
+        showLoading()
+        TuyaHomeSdk.getHomeManagerInstance().createHome(name, 0.0, 0.0, name, ArrayList<String>(), object : ITuyaHomeResultCallback {
+            override fun onSuccess(bean: HomeBean?) {
+                hideLoading()
+                initData()
+            }
+
+            override fun onError(errorCode: String?, errorMsg: String?) {
+                hideLoading()
+                toast("$errorCode $errorMsg")
+            }
+        })
     }
 }

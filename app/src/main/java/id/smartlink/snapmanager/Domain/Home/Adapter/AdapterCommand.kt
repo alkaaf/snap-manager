@@ -20,12 +20,14 @@ import com.tuya.smart.sdk.api.ITuyaDevice
 import com.tuya.smart.sdk.bean.DeviceBean
 import id.smartlink.snapmanager.Base.BaseRecyclerAdapter
 import id.smartlink.snapmanager.R
+import io.reactivex.subjects.PublishSubject
 import org.jetbrains.anko.toast
 
 class AdapterCommand(data: MutableList<SchemaBean>, var dev: DeviceBean) :
     BaseRecyclerAdapter<SchemaBean, RecyclerView.ViewHolder>(data) {
     lateinit var context: Context
     var iDev: ITuyaDevice = TuyaHomeSdk.newDeviceInstance(dev.devId)
+    var listenerPs = PublishSubject.create<String>()
 
     companion object {
         val TYPE_BOOLEAN = 1
@@ -33,17 +35,33 @@ class AdapterCommand(data: MutableList<SchemaBean>, var dev: DeviceBean) :
     }
 
     init {
+
+    }
+
+    fun registerListener() {
         iDev.registerDevListener(object : IDevListener {
             override fun onDpUpdate(devId: String?, dpStr: String?) {
                 notifyDataSetChanged()
+                listenerPs.onNext(
+                    "Got update\n" +
+                            "$devId : $dpStr\n"
+                )
             }
 
             override fun onStatusChanged(devId: String?, online: Boolean) {
                 notifyDataSetChanged()
+                listenerPs.onNext(
+                    "Got status change\n" +
+                            "$devId : $online\n"
+                )
             }
 
             override fun onRemoved(devId: String?) {
                 notifyDataSetChanged()
+                listenerPs.onNext(
+                    "Got device remoted\n" +
+                            "$devId : removed\n"
+                )
             }
 
             override fun onDevInfoUpdate(devId: String?) {
@@ -54,6 +72,10 @@ class AdapterCommand(data: MutableList<SchemaBean>, var dev: DeviceBean) :
                 notifyDataSetChanged()
             }
         })
+    }
+
+    fun unregisterListener() {
+        iDev.unRegisterDevListener()
     }
 
     override fun getItemViewType(position: Int): Int {
