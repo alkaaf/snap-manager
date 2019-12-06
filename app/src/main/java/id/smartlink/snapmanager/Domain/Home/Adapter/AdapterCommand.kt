@@ -41,35 +41,41 @@ class AdapterCommand(data: MutableList<SchemaBean>, var dev: DeviceBean) :
     fun registerListener() {
         iDev.registerDevListener(object : IDevListener {
             override fun onDpUpdate(devId: String?, dpStr: String?) {
-                notifyDataSetChanged()
                 listenerPs.onNext(
                     "Got update\n" +
                             "$devId : $dpStr\n"
                 )
+
             }
 
             override fun onStatusChanged(devId: String?, online: Boolean) {
-                notifyDataSetChanged()
                 listenerPs.onNext(
                     "Got status change\n" +
                             "$devId : $online\n"
                 )
+
             }
 
             override fun onRemoved(devId: String?) {
-                notifyDataSetChanged()
                 listenerPs.onNext(
                     "Got device remoted\n" +
                             "$devId : removed\n"
                 )
+
             }
 
             override fun onDevInfoUpdate(devId: String?) {
-                notifyDataSetChanged()
+                listenerPs.onNext(
+                    "Got device update\n" +
+                            "$devId \n"
+                )
             }
 
             override fun onNetworkStatusChanged(devId: String?, status: Boolean) {
-                notifyDataSetChanged()
+                listenerPs.onNext(
+                    "Got network change\n" +
+                            "$devId : $status\n"
+                )
             }
         })
     }

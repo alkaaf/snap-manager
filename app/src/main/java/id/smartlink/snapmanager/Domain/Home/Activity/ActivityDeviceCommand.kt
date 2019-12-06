@@ -42,6 +42,7 @@ class ActivityDeviceCommand : ActivityBase() {
         addDisposable(adapter.listenerPs.subscribe({
             tvLog.append(DateFormat.getDateTimeInstance().format(Date())+" > "+it+"\n")
             nsv.fullScroll(View.FOCUS_DOWN)
+            adapter.notifyDataSetChanged()
         }, {
 
         }))
