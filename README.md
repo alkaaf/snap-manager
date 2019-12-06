@@ -17,6 +17,6 @@ Working functions are here:
 - Control the bool functions of the device
 - Read the RO functions
 
-You can contact me if you encounter any problem
-email: alfa.alkaaf@gmail.com
-skype: 6285655012348
+You can contact me if you encounter any problem  
+email: alfa.alkaaf@gmail.com  
+skype: +6285655012348  
