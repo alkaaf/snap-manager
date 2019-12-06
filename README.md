@@ -3,7 +3,7 @@
 Hi, This is my customized app using Tuya Android SDK that used on [Tuya Demo App](https://github.com/TuyaInc/tuyasmart_home_android_sdk).
 Why i didn't use the OEM app? because i need heavy customized and very technical integration into my system that is not supported yet by the OEM app. Thats why i choose this decision.
 
-You can get the apk [HERE](https://github.com/alkaaf/snap-manager/releases/tag/v1.0.0)
+You can get the apk [HERE](https://github.com/alkaaf/snap-manager/releases/download/v1.0.0/app-debug.apk)
 
 You can enter with this credential:  
 **Username** : 62 85655012348  
